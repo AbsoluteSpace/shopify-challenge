@@ -35,7 +35,6 @@ def get_cursor():
     cur = conn.cursor()
     return (cur, conn)
 
-"""Initialize the sqlite database and fill up the `pokemon` table with sample data."""
 def initialize_db():
     (cur, conn) = get_cursor()
 
@@ -59,13 +58,14 @@ def initialize_db():
 
     conn.commit()
 
-@app.route("/")
-def home_page():
+@app.route("/<page>")
+def home_page(page = 0):
     (cur, _) = get_cursor()
     cur.execute("SELECT rowid, * FROM pokemon")
     
     rows = cur.fetchall()
-    # TODO don't show all rows, just fetch like 9 or however many classes - or paginate it
+    # TODO paginate it
+    # idxs = np.arrange(0+10*page, 9 + 10*page)
 
     pokemons = []
     for row in rows[0:9]:
