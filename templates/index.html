@@ -11,10 +11,10 @@
                 <td>Image</td>
                 <td>Type1</td>
                 <td>Type2</td>
-                <td></td>
+                <td>Similar</td>
             </thead>
             
-            {% for pokemon in pokemons %}
+            {% for pokemon in pokemons[0:9] %}
                 <tr>
                 <td>{{pokemon["name"]}}</td>
                 <td><img src='{{pokemon["src"]}}' /></td>

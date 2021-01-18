@@ -91,47 +91,33 @@ def similar(pokemon_id):
     result = cur.fetchone()
     (rowid, name, type1, type2, imgpath) = result
 
-    # TODO add the similar pokemon here
     cur.execute("SELECT rowid, * FROM pokemon")
     rows = cur.fetchall()
 
-    # print(np.asarray(rows)[:,2:-1])
-
-    new_arr = []
+    X = []
     y = []
-
-    for p in rows:
-        p_row = np.zeros(19)
-        # print(switch(p[1]))
-        p_row[switch(p[2])] = 1
-        p_row[switch(p[3])] = 1
-        # np.array(p_row)[19] = p['rowid']
-        new_arr.append(p_row)
-        # y.append(p[0])
-        y.append(p)
-
     test = []
-    new_res = np.zeros(19)
-    new_res[switch(result[2])] = 1
-    new_res[switch(result[3])] = 1
-    test.append(new_res)
 
-    # pokemon_df = pd.read_csv('./static/pokemon.csv')
-    # for p in pokemon_df.to_numpy():
-    #     if not isinstance(p[2], str):
-    #         p[-1] = 'None'
-    #     data = (p[0], p[1], p[2], p[0] + '.png')
-    #     cur.execute("INSERT INTO pokemon (name, type1, type2, imgpath) VALUES (?, ?, ?, ?)", data)
+    for row in rows:
+        p_row = np.zeros(19)
+        p_row[switch(row[2])] = 1
+        p_row[switch(row[3])] = 1
+        X.append(p_row)
+        y.append(row)
 
-    # print(np.asarray(test))
+    query = np.zeros(19)
+    query[switch(result[2])] = 1
+    query[switch(result[3])] = 1
+    test.append(query)
 
-    model = KNN(6)
-    model.fit(np.asarray(new_arr), np.asarray(y))
+    model = KNN(45)
+    model.fit(np.asarray(X), np.asarray(y))
     y_pred = model.predict(np.asarray(test))
 
-    # TODO grab more and randomly show 5?
+    rand = np.random.choice(44,5, replace=False)
+
     pokemons = []
-    for row in y_pred[1:]:
+    for row in y_pred[rand]:
         pokemons.append({
             "id":    row[0],
             "name":  row[1],
@@ -141,7 +127,6 @@ def similar(pokemon_id):
         })
 
     return render_template("similar.html", pokemons=pokemons)
-    # TODO this is where I need something for similar items
     
 if __name__ == '__main__':
     initialize_db()

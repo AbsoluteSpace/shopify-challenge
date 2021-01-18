@@ -21,4 +21,4 @@ class KNN:
         dist2 = utils.euclidean_dist_squared(X, Xtest)
 
         inds = np.argsort(dist2[:,0])
-        return y[inds[:k]]
+        return y[inds[:k]][1:]
