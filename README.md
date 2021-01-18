@@ -1,10 +1,14 @@
 # What is this
 
-This is an image repository that recommends similar pokemon to the ones that you click on. It does this using the KNN Machine Learning algorithm with a pokemon's types as its features. There is an element of randomness in the recomendations to keep the similarity feature from becoming stale (for example if a pure grass type pokemon is recomended, there are so many pure grass types that the algorithm will soon only recommend them). The randomness is done just by grabbing some factor of nearest-neighbours more than we actually want to display, and then picking some at random.
+This is an image repository that recommends similar pokemon to the ones that you click on using the KNN Machine Learning algorithm with a pokemon's types as its features.
+
+I have introduced an element of randomness in recommendations to keep the similarity feature from being stale (for example, due to the huge number of pure grass type pokemon, once one has been selected only pure grass types are recommended). The randomness is performed just by grabbing some number of nearest-neighbours that exceeds how many we actually want to display, and then picking some at random.
+
+I chose to use python because I was really excited to try some machine learning based similarity recommendations and I have the most experience in this language for the limited time I had to work on this.
 
 Flask is used as a web application framework, and I chose it because it was quick and easy to use and can scale to complex applications.
 
-SQLite is used because it was the simplest database for me to understand and store urls to pokemon images, their types, and their name. I did not store the pokemon images themselves in the database because of the large storage size requirement.
+SQLite is used because it was the simplest database for me to understand. I store urls to pokemon images, their types, and their name. I did not store the pokemon images themselves in the database because of the large storage size requirement. This was based on the advice of [Microsoft](https://www.microsoft.com/en-us/research/publication/to-blob-or-not-to-blob-large-object-storage-in-a-database-or-a-filesystem/)
 
 
 # Usage
