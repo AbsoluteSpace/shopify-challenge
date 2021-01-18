@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Image Repository</title>
+    </head>
+    
+    <body>
+        <a href="/">Main page</a> <br>
+
+        <table border = 1>
+            <thead>
+                <td>Name</td>
+                <td>Image</td>
+                <td>Type1</td>
+                <td>Type2</td>
+                <td></td>
+            </thead>
+            
+            {% for pokemon in pokemons %}
+                <tr>
+                <td>{{pokemon["name"]}}</td>
+                <td><img src='{{pokemon["src"]}}' /></td>
+                <td>{{pokemon["type1"]}}</td>
+                <td>{{pokemon["type2"]}}</td>
+                <td><a href='/similar/{{pokemon["id"]}}'>Similar</button></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
